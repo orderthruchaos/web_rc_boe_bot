@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+
+
+[ ${BASH_VERSINFO:-0} -lt 3 ] && { echo "bash version >= 3 required: ${BASH_VERSINFO:-0}" 1>&2; exit 1; }
+
+
+shopt -s extglob xpg_echo || { echo -e "\nshopt must support:\n  extglob\n  xpg_echo" 1>&2; exit 1; }
+
+
+sp=$(echo -e "[ \t]")
+tb=$(echo -e "\t")
+
+
+if [ -n "$WINDIR" ]; then is_win=true; else is_win=false; fi
+function prfx { local p="${1//\//\\/}" m; shift; for m in "$@"; do echo -e "$m" | sed -e "s/^/$p/" 1>&2; done; }
+function rprt { echo '# info:  ' 1>&2 ; prfx '    ' "$@"; }
+function warn { prfx 'warn:  ' "$@" 1>&2; }
+function barf { warn "$@"; return 1; }
+function die  { prfx 'die:  '  "$@" 1>&2; exit 1; }
+function cdod { local d="$1" ; cd "$d" || die "Could not:" "  cd '$d'"; }
+# function win_only  { $is_win || die "Only available on Windows/Cygwin."; }
+# function unix_only { $is_win && die "Only available on Unix."; }
+# win_only
+# unix_only
+
+
+top_dir="$(dirname "$(dirname "$0")")"
+
+
+build=false
+dry=false
+help=false
+out_dir="$PWD"
+run_main=true
+use_sudo=false
+today=$(date +'%Y%m%d')
+verbose=false
+while getopts ':O:Rbhsvy' opt; do # {{{1
+  case $opt in
+    O)
+      out_dir="$OPTARG"
+      ;;
+    R)
+      run_main=false
+      ;;
+    b)
+      build=true
+      ;;
+    h)
+      help=true
+      ;;
+    s)
+      use_sudo=true
+      ;;
+    v)
+      verbose=true
+      ;;
+    y)
+      dry=true
+      ;;
+    *)
+      o="$(eval "echo \"'\$$((OPTIND - 1))'\"")"
+      die "Invalid option:  $o"
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+$dry && verbose=true
+
+
+
+
+if $help; then # {{{1
+  cat <<EOHELP
+
+Script name:
+
+  $0
+
+Description:
+
+  TODO
+
+Usage:
+
+  $0 [-h] [-v] [-y]
+
+Flags:
+
+  -h
+      Display this help message, then exit with success.
+  -v
+      Verbose mode.
+  -y
+      Dry run.  Automatically enables verbose mode.
+
+EOHELP
+  exit 0
+fi
+
+
+
+
+# functions # {{{1
+
+
+
+
+# defaults # {{{1
+
+
+
+
+# code # {{{1
+
+
+cdod "$top_dir"
+if $build; then
+  npm run-script build || die "could not build"
+fi
+
+
+if $run_main; then
+  if $use_sudo; then
+    sudo node build/server.js
+  elif [ `uname` = "Darwin" ]; then
+    node build/server.js
+  else
+    sudo node build/server.js
+  fi
+fi
+
+
+# vim: ft=sh fdm=marker fdl=4 sw=2 sts=2 ts=8 et

@@ -1,0 +1,16 @@
+*.bak
+*~
+.*.sw?
+.DS_Store
+._*
+\#*.lyx\#
+\~$*.xlsx
+__MACOSX/
+
+
+build/
+tmp/
+.idea/
+node_modules/
+*npm-debug.log*
+*.tgz

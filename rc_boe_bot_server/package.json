@@ -1,0 +1,51 @@
+{
+  "name": "rc_boe_bot_server",
+  "version": "0.0.1",
+  "description": "Server for Remote Control BoE-Shield robot.",
+  "keywords": [
+    "bean",
+    "punchthrough",
+    "lightblue",
+    "ble",
+    "bluetooth",
+    "noble",
+    "board of education"
+  ],
+  "main": "build/index.js",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/orderthruchaos/rc_boe_bot_server.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register --recursive",
+    "babel": "./node_modules/.bin/babel src -d build/",
+    "build": "python scripts/build"
+  },
+  "author": "Brett DiFrischia",
+  "license": "MIT",
+  "dependencies": {
+    "async": "*",
+    "commander": "*",
+    "crc": "^3.4.0",
+    "fs-extra": "^0.30.0",
+    "js-yaml": "*",
+    "bean-sdk": "^0.6.1",
+    "noble": "^1.7.0",
+    "queue": "^4.0.0",
+    "sleep": "^3.0.1",
+    "sprintf-js": "^1.0.3",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-register": "^6.14.0",
+    "mocha": "*",
+    "sinon": "^1.17.4"
+  }
+}

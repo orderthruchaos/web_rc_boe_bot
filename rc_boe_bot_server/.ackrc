@@ -1,0 +1,2 @@
+--ignore-directory=build
+--ignore-directory=node_modules

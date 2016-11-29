@@ -1,0 +1,56 @@
+{
+  "name": "bean-sdk",
+  "version": "0.5.3",
+  "description": "Official Light Blue Bean SDK for Node.js by Punch Through",
+  "keywords": [
+    "bean",
+    "punchthrough",
+    "lightblue",
+    "ble",
+    "bluetooth",
+    "noble"
+  ],
+  "main": "build/lightblue.js",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "bin": {
+    "bean": "build/cli/entry.js"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register --recursive",
+    "babel": "./node_modules/.bin/babel src -d build/",
+    "build": "python scripts/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PunchThrough/bean-sdk-node.git"
+  },
+  "author": "Stephen Stack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PunchThrough/bean-sdk-node/issues"
+  },
+  "homepage": "https://github.com/PunchThrough/bean-sdk-node#readme",
+  "dependencies": {
+    "async": "*",
+    "commander": "*",
+    "crc": "^3.4.0",
+    "fs-extra": "^0.30.0",
+    "js-yaml": "*",
+    "noble": "^1.7.0",
+    "queue": "^4.0.0",
+    "sleep": "^3.0.1",
+    "sprintf-js": "^1.0.3",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-register": "^6.14.0",
+    "mocha": "*",
+    "sinon": "^1.17.4"
+  }
+}
